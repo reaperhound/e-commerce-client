@@ -5,6 +5,8 @@ import "./Login.scss"
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { animateFormLogIn } from "../SignupAnimation";
+import axios from "axios";
+import { setUserToLocal } from "../../../utils/JWT";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,13 +15,26 @@ const Login = () => {
   const formContainer = useRef(null);
   const TL = useRef(null);
 
+  const buttonAnim = gsap.to(".form__submit-btn", {
+    // scale: 0.75,
+    rotateY: 360,
+    // yoyo: true,
+    // repeat: 1,
+    duration: 0.55,
+    ease: "power4",
+    paused: true
+  })
+
   async function loginHandler() {
     try {
+      buttonAnim.restart()
       const response = axios.post("http://localhost:3000/auth/login", {
         email,
         password,
       });
-      console.log((await response).data.data);
+      const {data} = await response
+      console.log(data);
+      setUserToLocal(data.token)
     } catch (error) {
       console.log(error);
     }

@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import {  animateFormSignUp } from "../SignupAnimation";
 import { gsap } from "gsap";
 import { useRef } from "react";
+// import { setToken } from "../../../utils/JWT";
 
 const SignUp = () => {
 
@@ -13,10 +14,28 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  //# ref for context 
+  const formContainer = useRef(null);
+  //# ref for timeline 
+  let TL = useRef(null);
 
+  let btnRef = useRef(null)
+
+  const buttonAnim = gsap.to(".form__submit-btn", {
+    // scale: 0.75,
+    rotateY: 360,
+    // yoyo: true,
+    // repeat: 1,
+    duration: 0.55,
+    ease: "power4",
+    paused: true
+  })
+  
   //# form handler 
   async function signUpHandler() {
     try {
+      buttonAnim.restart()
       const response = axios.post("http://localhost:3000/auth/register", {
         username,
         password,
@@ -25,13 +44,10 @@ const SignUp = () => {
       console.log((await response).data.data);
     } catch (error) {
       console.log(error);
+     
     }
   }
 
-  //# ref for context 
-  const formContainer = useRef(null);
-  //# ref for timeline 
-  let TL = useRef(null);
 
   //# animation useEffect 
   useEffect(() => {
@@ -61,7 +77,7 @@ const SignUp = () => {
           <input
             placeholder='email'
             className='form__email--input'
-            type='text'
+            type='email'
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
@@ -70,12 +86,13 @@ const SignUp = () => {
           <input
             placeholder='password'
             className='form__password--input'
-            type='text'
+            type='password'
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
         </div>
         <button
+          ref={btnRef}
           type='submit'
           onClick={signUpHandler}
           className='form__submit-btn'
