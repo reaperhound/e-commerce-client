@@ -1,0 +1,79 @@
+.formLogin{
+    width: 100%;
+    height: 100vh;
+    background: #E3F6F5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .form__form {
+        width: 369px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 494px;
+        flex-shrink: 0;
+        border-radius: 5px;
+        background: #2C698D;
+
+        h1 {
+            margin: 32px;
+            color: #FFF;
+            font-family: Poppins;
+            font-size: 40px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+        }
+
+        input{
+            width: 305px;
+            height: 59px;
+            flex-shrink: 0;
+            border-radius: 5px;
+            background: #FFF;
+            padding: 20px;
+        }
+
+        input::placeholder{
+            padding: 20px;
+        }
+
+        .form__email {
+            margin: 24px;
+        }
+
+        button{
+            width: 111px;
+            height: 42px;
+            margin-top: 32px;
+            flex-shrink: 0;
+            border-radius: 5px;
+            background: #272643;
+            color: #FFF;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        h3{
+            margin-top: 24px;
+            color: #E3F6F5;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+
+            span{
+                color: #FFF;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+            }
+        }
+    }
+
+   
+}
