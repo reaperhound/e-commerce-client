@@ -5,6 +5,7 @@ import SignUp from "./pages/Auth/SignUp/SignUp";
 import Login from "./pages/Auth/Login/Login";
 import Home from "./pages/Home/Home";
 import Category from "./pages/Category/Category";
+import Product from "./pages/Product/Product";
 
 
 function App() {
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route path="category">
             <Route path=":catName" element={<Category />} />
+          </Route>
+          <Route path="products">
+            <Route path=":name" element={<Product />} />
           </Route>
         </Routes>
       </Router>
