@@ -6,21 +6,37 @@
     .home__categoryContainer{
         display: flex;
         flex-wrap: wrap;
+        gap: 50px;
+        margin-left: 80px;
 
+        img{
+            width: 650px;
+            height: 332px;
+        }
 
         div {
             width: 650px;
             height: 332px;
-            background: #000;
-            margin: 50px;
+            position: relative;
+        }
+
+        .overlay{
+            position: absolute;
+            opacity: 0.3;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            text-align: center;
+
+            span{
+                z-index: 10;
+                font-size: 100px;
+                color: #fff;
+            }
         }
 
         .home__categoryContainer--imgCont1, .home__categoryContainer--imgCont2{
             margin-top: 50px;
-        }
-
-        .home__categoryContainer--imgCont3, .home__categoryContainer--imgCont4{
-            margin-top: 10px;
         }
     }
 }

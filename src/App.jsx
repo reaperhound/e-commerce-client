@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignUp from "./pages/Auth/SignUp/SignUp";
 import Login from "./pages/Auth/Login/Login";
 import Home from "./pages/Home/Home";
+import Category from "./pages/Category/Category";
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -15,8 +17,11 @@ function App() {
           <Route path="/" element={<Home />} >
           </Route>
           <Route path='auth' element="">
-            <Route path={"login"} element={<Login />} />
+            <Route path="signin" element={<Login />} />
             <Route path="signup"  element={<SignUp />} />
+          </Route>
+          <Route path="category">
+            <Route path=":catName" element={<Category />} />
           </Route>
         </Routes>
       </Router>

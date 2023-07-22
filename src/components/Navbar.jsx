@@ -1,27 +1,43 @@
 import React from "react";
 import "./Navbar.scss";
+import { getUserFromLocal } from "../utils/JWT";
+import { Link } from "react-router-dom";
+import { useRef } from "react";
+import { gsap } from "gsap";
 
 const Navbar = () => {
+  let user = getUserFromLocal();
+
   return (
     <div className='navbar'>
       {/* //`  Logo  */}
       <div className='nav__logo'>
-        <img src='/LOGO.png' alt='' />
+        <Link to={"/"}>
+          <img src='/ShoeTrove-logo-black.png' alt='' />
+        </Link>
       </div>
 
       {/* //` SearchBox */}
       <div className='nav__searchBox'>
-        <input type='text' />
+        <input type='text' placeholder='Search...' />
       </div>
 
       {/* //` Cart Icon  */}
-      <div className='nav__cartIcon'></div>
+      <div className='nav__cartIcon'>
+        <span>24</span>
+      </div>
 
       {/* //` Auth Button */}
       <div className='nav__button'>
-        <button>
-            AUTH
-        </button>
+        {user === false ? (
+          <Link to={"/auth/signin"} className='button--pan'>
+            <button className='sign-in'>
+              <span>Sign In</span>
+            </button>
+          </Link>
+        ) : (
+          <button className='sign-out'>Sign Out</button>
+        )}
       </div>
     </div>
   );

@@ -3,24 +3,24 @@ import { useState } from "react";
 import axios from "axios";
 import "./SignUp.scss";
 import { useEffect } from "react";
-import {  animateFormSignUp } from "../SignupAnimation";
+import { animateFormSignUp } from "../SignupAnimation";
 import { gsap } from "gsap";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 // import { setToken } from "../../../utils/JWT";
 
 const SignUp = () => {
-
-  //# useState for form management 
+  //# useState for form management
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  //# ref for context 
+
+  //# ref for context
   const formContainer = useRef(null);
-  //# ref for timeline 
+  //# ref for timeline
   let TL = useRef(null);
 
-  let btnRef = useRef(null)
+  let btnRef = useRef(null);
 
   const buttonAnim = gsap.to(".form__submit-btn", {
     // scale: 0.75,
@@ -29,13 +29,13 @@ const SignUp = () => {
     // repeat: 1,
     duration: 0.55,
     ease: "power4",
-    paused: true
-  })
-  
-  //# form handler 
+    paused: true,
+  });
+
+  //# form handler
   async function signUpHandler() {
     try {
-      buttonAnim.restart()
+      buttonAnim.restart();
       const response = axios.post("http://localhost:3000/auth/register", {
         username,
         password,
@@ -44,16 +44,13 @@ const SignUp = () => {
       console.log((await response).data.data);
     } catch (error) {
       console.log(error);
-     
     }
   }
 
-
-  //# animation useEffect 
+  //# animation useEffect
   useEffect(() => {
     let ctx = gsap.context(() => {
       animateFormSignUp(TL.current);
-      
     }, formContainer);
     return () => ctx.revert();
   }, []);
@@ -101,7 +98,10 @@ const SignUp = () => {
         </button>
 
         <h3>
-          Already have an account ? <span>Login</span>
+          Already have an account ?{" "}
+          <Link to={"/auth/signin"}>
+            <span>Login</span>
+          </Link>
         </h3>
       </form>
     </div>

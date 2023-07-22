@@ -1,12 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { useRef } from "react";
-import "./Login.scss"
+import "./Login.scss";
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { animateFormLogIn } from "../SignupAnimation";
 import axios from "axios";
 import { setUserToLocal } from "../../../utils/JWT";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -22,19 +23,19 @@ const Login = () => {
     // repeat: 1,
     duration: 0.55,
     ease: "power4",
-    paused: true
-  })
+    paused: true,
+  });
 
   async function loginHandler() {
     try {
-      buttonAnim.restart()
+      buttonAnim.restart();
       const response = axios.post("http://localhost:3000/auth/login", {
         email,
         password,
       });
-      const {data} = await response
+      const { data } = await response;
       console.log(data);
-      setUserToLocal(data.token)
+      setUserToLocal(data.token);
     } catch (error) {
       console.log(error);
     }
@@ -42,11 +43,11 @@ const Login = () => {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-        animateFormLogIn(TL.current);
-    }, formContainer)
+      animateFormLogIn(TL.current);
+    }, formContainer);
 
     return () => ctx.revert();
-  },[])
+  }, []);
   return (
     <div className='formLogin' ref={formContainer}>
       <form className='form__form' onSubmit={(e) => e.preventDefault()}>
@@ -80,7 +81,10 @@ const Login = () => {
         </button>
 
         <h3>
-          Don't have an account ? <span>Sign Up</span>
+          Don't have an account ?{" "}
+          <Link to={"/auth/signup"}>
+            <span>Sign Up</span>
+          </Link>
         </h3>
       </form>
     </div>
