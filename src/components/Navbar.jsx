@@ -8,6 +8,11 @@ import { gsap } from "gsap";
 const Navbar = () => {
   let user = getUserFromLocal();
 
+  function signOutHandler(){
+    localStorage.removeItem('user');
+    window.location.reload(true);
+  }
+
   return (
     <div className='navbar'>
       {/* //`  Logo  */}
@@ -36,7 +41,7 @@ const Navbar = () => {
             </button>
           </Link>
         ) : (
-          <button className='sign-out'>Sign Out</button>
+          <button onClick={signOutHandler} className='sign-out'><span>Sign Out</span></button>
         )}
       </div>
     </div>

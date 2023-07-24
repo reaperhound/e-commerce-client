@@ -8,6 +8,7 @@ import { animateFormLogIn } from "../SignupAnimation";
 import axios from "axios";
 import { setUserToLocal } from "../../../utils/JWT";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +16,8 @@ const Login = () => {
 
   const formContainer = useRef(null);
   const TL = useRef(null);
+
+  const navigate = useNavigate()
 
   const buttonAnim = gsap.to(".form__submit-btn", {
     // scale: 0.75,
@@ -36,6 +39,7 @@ const Login = () => {
       const { data } = await response;
       console.log(data);
       setUserToLocal(data.token);
+      navigate('/')
     } catch (error) {
       console.log(error);
     }

@@ -6,12 +6,15 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Category = () => {
   let { catName: params } = useParams();
 
   let catContainer = useRef(null);
   let TL = useRef(null);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -32,6 +35,9 @@ const Category = () => {
   return (
     <div ref={catContainer} className='category'>
       <Navbar />
+      <div onClick={() => navigate(-1)} className='category__arrow'>
+        <img src='/back.png' alt='' />
+      </div>
       <div className='category_container'>
         <div className='category__head'>
           <h1>{params.toLocaleUpperCase()}</h1>

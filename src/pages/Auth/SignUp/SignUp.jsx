@@ -7,6 +7,7 @@ import { animateFormSignUp } from "../SignupAnimation";
 import { gsap } from "gsap";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { setToken } from "../../../utils/JWT";
 
 const SignUp = () => {
@@ -21,6 +22,7 @@ const SignUp = () => {
   let TL = useRef(null);
 
   let btnRef = useRef(null);
+  const navigate = useNavigate()
 
   const buttonAnim = gsap.to(".form__submit-btn", {
     // scale: 0.75,
@@ -42,6 +44,8 @@ const SignUp = () => {
         email,
       });
       console.log((await response).data.data);
+
+      navigate('/')
     } catch (error) {
       console.log(error);
     }
@@ -87,6 +91,7 @@ const SignUp = () => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
+          <i></i>
         </div>
         <button
           ref={btnRef}

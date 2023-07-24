@@ -1,5 +1,19 @@
 .category {
     background-color: #fff;
+    position: relative;
+
+    .category__arrow{
+        position: absolute;
+        left: 50px;
+        top: 150px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        // background-color: red;
+        img{
+            width: 100%;
+        }
+    }
 
     .category_container{
         display: flex;
