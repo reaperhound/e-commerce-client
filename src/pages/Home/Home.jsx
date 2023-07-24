@@ -6,8 +6,11 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
+import { useDocumentTitle } from "@uidotdev/usehooks";
+
 
 const Home = () => {
+  useDocumentTitle("Home")
   let user = getUserFromLocal();
 
   //` do some modal here

@@ -8,9 +8,13 @@ import { gsap } from "gsap";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useDocumentTitle } from "@uidotdev/usehooks";
+
 // import { setToken } from "../../../utils/JWT";
 
 const SignUp = () => {
+  useDocumentTitle("Sign Up")
+
   //# useState for form management
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");

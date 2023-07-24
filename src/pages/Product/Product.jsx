@@ -3,20 +3,50 @@ import Navbar from "../../components/Navbar";
 import "./Product.scss";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useDocumentTitle } from "@uidotdev/usehooks";
+import { useRef } from "react";
+import { useLayoutEffect } from "react";
+import { gsap } from "gsap";
+
 
 const Product = () => {
+  useDocumentTitle("Products")
   const { name } = useParams();
   const [query] = useSearchParams();
   const { brand, img, price } = Object.fromEntries([...query]);
+
+  const productRef = useRef(null)
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const TL = gsap.timeline({defaults: {x: -1800, duration: 0.9, ease: "power1.out"}});
+
+      TL.from(".product__imgContainer", {x: -1300})
+      .from(".product__details--name", {}, "-=0.85")
+      .from(".product__details--rating", {}, "-=0.85")
+      .from(".product__details--brand", {}, "-=0.85")
+      .from(".product__details--price", {}, "-=0.85")
+      .from(".product__details--color", {}, "-=0.85")
+      .from(".product__details--someText", {}, "-=0.85")
+      .from(".product__details--sizeText", {}, "-=0.85")
+      .from(".product__details--sizeBoxCont", {}, "-=0.85")
+      .from(".product__details--cartBtn", {}, "-=0.85")
+      .from(".product__details--buyBtn", {}, "-=0.85")
+
+
+      return () => ctx.revert();
+    }, productRef)
+  },[])
 
   const navigate = useNavigate()
   return (
     <div className='product'>
       <Navbar />
-      <div onClick={() => navigate(-1)} className='product__arrow'>
+      <div  onClick={() => navigate(-1)} className='product__arrow'>
         <img src='/back.png' alt='' />
       </div>
-      <div className='product__Container'>
+
+      <div ref={productRef} className='product__Container'>
         <div className='product__imgContainer'>
           <img src={img} alt={name} />
         </div>
@@ -40,7 +70,7 @@ const Product = () => {
             are between sizes
           </p>
 
-          <h6 className='product__details--sizeText'>SIzes:</h6>
+          <h6 className='product__details--sizeText'>Sizes:</h6>
 
           <div className='product__details--sizeBoxCont'>
             <div>6</div>

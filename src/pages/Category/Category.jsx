@@ -7,8 +7,11 @@ import { useEffect } from "react";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useDocumentTitle } from "@uidotdev/usehooks";
+
 
 const Category = () => {
+  useDocumentTitle("Categories")
   let { catName: params } = useParams();
 
   let catContainer = useRef(null);

@@ -1,0 +1,37 @@
+.cart {
+
+
+    .cart__container{
+        display: flex;
+        flex-direction: column;
+
+        .cart__productRow{
+            background-color: aqua;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 100px;
+            .cart__productRow--imgCont{
+                width: 100px;
+                // height: 250px;
+                background-color: red;
+                img{
+                    width: 100%;
+                }
+            }
+
+            .cart__productRow--controls{
+                background-color: bisque;
+                display: flex;
+
+                .cart__productRow--quantityCont{
+                    display: flex;
+                    
+                    button{
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

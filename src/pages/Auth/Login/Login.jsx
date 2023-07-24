@@ -9,8 +9,11 @@ import axios from "axios";
 import { setUserToLocal } from "../../../utils/JWT";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useDocumentTitle } from "@uidotdev/usehooks";
+
 
 const Login = () => {
+  useDocumentTitle("Sign in")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
