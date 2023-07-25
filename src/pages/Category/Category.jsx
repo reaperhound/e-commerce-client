@@ -8,18 +8,20 @@ import { gsap } from "gsap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDocumentTitle } from "@uidotdev/usehooks";
-
+import { useLayoutEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 const Category = () => {
-  useDocumentTitle("Categories")
+  useDocumentTitle("Categories");
   let { catName: params } = useParams();
-
   let catContainer = useRef(null);
   let TL = useRef(null);
+  const [productsList, setProductsList] = useState([]);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const TL = gsap.timeline();
 
@@ -33,8 +35,16 @@ const Category = () => {
         },
       });
     }, catContainer);
-  }, []);
+  }, [productsList]);
 
+  useEffect(() => {
+    async function fetchProductList() {
+      const products = axios.get(`http://localhost:3000/category/${params}`);
+      console.log(await products);
+      setProductsList((await products).data?.data);
+    }
+    fetchProductList();
+  }, []);
   return (
     <div ref={catContainer} className='category'>
       <Navbar />
@@ -47,12 +57,23 @@ const Category = () => {
         </div>
 
         <div className='category__prodcontainer'>
-          {data.map((item) => {
-            let { img, name, brand, price } = item;
+          {productsList.map((item, index) => {
+            let {
+              image,
+              title,
+              brand,
+              category,
+              description,
+              price,
+              reviews,
+              _id,
+            } = item;
             return (
-              <div key={name} className='category__imageContainer'>
-                <Link to={`/products/${name}?brand=${brand}&img=${img}&price=${price}`}>
-                  <img src={img} alt='' />
+              <div key={_id} className='category__imageContainer'>
+                <Link
+                  to={`/products/${title}?brand=${brand}&img=${image}&price=${price}&category=${category}&description=${description}&reviews=${reviews}`}
+                >
+                  <img src={image} alt={title} />
                 </Link>
               </div>
             );
