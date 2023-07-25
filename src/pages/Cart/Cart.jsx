@@ -10,6 +10,12 @@ const Cart = () => {
   const cartItem = useStore((state) => state.cartItems);
   const addToCart = useStore((state) => state.addToCartItems);
   const removeFromCart = useStore((state) => state.removeFromCart);
+  const incrementCount = useStore((state) => state.incrementCount);
+  const decrementCount = useStore((state) => state.decrementCount)
+  useEffect(() => {
+    addToCart({name: "adiddas", count: 1});
+    addToCart({name: "nike", count : 5})
+  },[])
   console.log(cartItem);
   return (
     <div className='cart'>
@@ -31,13 +37,13 @@ const Cart = () => {
           <div className='cart__productRow--controls'>
             <div className='cart__productRow--quantityCont'>
               <div className='cart__productRow--dec'>
-                <button>INC</button>
+                <button onClick={() => decrementCount({name: 'nike', count: 5})}>DEC</button>
               </div>
               <div className='cart__productRow--count'>
                 <span>10</span>
               </div>
-              <div className='cart__productRow--inc'>
-                <button>DEC</button>
+              <div onClick={() => incrementCount({name: "nike"})} className='cart__productRow--inc'>
+                <button>INC</button>
               </div>
             </div>
             <div className='cart__productRow--delCont'>

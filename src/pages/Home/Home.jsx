@@ -7,10 +7,13 @@ import { useEffect } from "react";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
 import { useDocumentTitle } from "@uidotdev/usehooks";
-
+import { useLayoutEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
 
 const Home = () => {
-  useDocumentTitle("Home")
+  useDocumentTitle("Home");
+  const [categoryList, setCategoryList] = useState([]);
   let user = getUserFromLocal();
 
   //` do some modal here
@@ -21,58 +24,48 @@ const Home = () => {
 
   let homeContainer = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      const TL = gsap.timeline({defaults: { x: -1500, ease: "power1.out", duration: 0.6 }});
-      TL.from(".home__categoryContainer--imgCont1",{}, )
-        .from(".home__categoryContainer--imgCont2",{}, "-=0.3")
-        .from(".home__categoryContainer--imgCont3",{}, "-=0.3")
-        .from(".home__categoryContainer--imgCont4",{}, "-=0.3");
+      const TL = gsap.timeline({
+        defaults: { x: -2500, ease: "power1.out", duration: 0.75 },
+      });
+      TL.from(".home__categoryContainer--imgCont0", {})
+        .from(".home__categoryContainer--imgCont1", {}, "-=0.55")
+        .from(".home__categoryContainer--imgCont2", {}, "-=0.55")
+        .from(".home__categoryContainer--imgCont3", {}, "-=0.55");
     }, homeContainer);
 
-    return () =>  ctx.revert();
+    return () => ctx.revert();
+  }, [categoryList]);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      const categories = axios.get("http://localhost:3000/category");
+      setCategoryList((await categories).data?.data);
+    }
+    fetchCategories();
   }, []);
 
+  console.log("categoryList", categoryList);
   return (
     <div className='home'>
       <Navbar />
-
       <div className='home__categoryContainer' ref={homeContainer}>
-        <div className='home__categoryContainer--imgCont1'>
-          <Link to={"/category/sneakers"}>
-          <div className='overlay'>
-            <span>Shoes</span>
-          </div>
-            <img src='/shoe.jpg' alt='' />
-          </Link>
-        </div>
-
-        <div className='home__categoryContainer--imgCont2'>
-          <Link to="category/boots">
-          <div className='overlay'>
-            <span>Shoes</span>
-          </div>
-            <img src='/shoe.jpg' alt='' />
-          </Link>
-        </div>
-
-        <div className='home__categoryContainer--imgCont3'>
-          <Link to="category/sports">
-          <div className='overlay'>
-            <span>Shoes</span>
-          </div>
-            <img src='/shoe.jpg' alt='' />
-          </Link>
-        </div>
-
-        <div className='home__categoryContainer--imgCont4'>
-          <Link to="category/ladies">
-          <div className='overlay'>
-            <span>Shoes</span>
-          </div>
-            <img src='/shoe.jpg' alt='' />
-          </Link>
-        </div>
+        {categoryList.map((category, index) => {
+          return (
+            <div
+              key={category}
+              className={`home__categoryContainer--imgCont${index}`}
+            >
+              <Link to={`/category/${category}`}>
+                <div className='overlay'>
+                  <span>{category}</span>
+                </div>
+                <img src='/shoe.jpg' alt='' />
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
