@@ -35,8 +35,8 @@ const Home = () => {
   //       .from(".home__categoryContainer--imgCont3", {}, "-=0.55");
   //   }, homeContainer);
 
-    return () => ctx.revert();
-  }, [categoryList]);
+  //   return () => ctx.revert();
+  // }, [categoryList]);
 
   useEffect(() => {
     async function fetchCategories() {
