@@ -24,16 +24,16 @@ const Home = () => {
 
   let homeContainer = useRef(null);
 
-  useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      const TL = gsap.timeline({
-        defaults: { x: -2500, ease: "power1.out", duration: 0.75 },
-      });
-      TL.from(".home__categoryContainer--imgCont0", {})
-        .from(".home__categoryContainer--imgCont1", {}, "-=0.55")
-        .from(".home__categoryContainer--imgCont2", {}, "-=0.55")
-        .from(".home__categoryContainer--imgCont3", {}, "-=0.55");
-    }, homeContainer);
+  // useLayoutEffect(() => {
+  //   let ctx = gsap.context(() => {
+  //     const TL = gsap.timeline({
+  //       defaults: { x: -2500, ease: "power1.out", duration: 0.75 },
+  //     });
+  //     TL.from(".home__categoryContainer--imgCont0", {})
+  //       .from(".home__categoryContainer--imgCont1", {}, "-=0.55")
+  //       .from(".home__categoryContainer--imgCont2", {}, "-=0.55")
+  //       .from(".home__categoryContainer--imgCont3", {}, "-=0.55");
+  //   }, homeContainer);
 
     return () => ctx.revert();
   }, [categoryList]);
