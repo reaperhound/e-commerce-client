@@ -40,7 +40,7 @@ const Home = () => {
 
   useEffect(() => {
     async function fetchCategories() {
-      const categories = axios.get("http://localhost:3000/category");
+      const categories = axios.get("https://e-commerce-api-fa1t.onrender.com/category");
       setCategoryList((await categories).data?.data);
     }
     fetchCategories();
