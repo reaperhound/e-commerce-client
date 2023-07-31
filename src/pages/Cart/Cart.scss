@@ -1,34 +1,100 @@
 .cart {
 
+    .cart__divider{
+        width: 80vw;
+        border-top: 5px solid gray;
+        display: flex;
+        justify-content: flex-end;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+
+        span{
+            font-weight: bolder;
+            font-size: larger;
+            margin: 30px 110px 100px
+        }
+    }
+
+    .cart__arrow{
+        position: absolute;
+        left: 20px;
+        top: 120px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        // background-color: red;
+        img{
+            width: 100%;
+        }
+    }
 
     .cart__container{
         display: flex;
         flex-direction: column;
+        margin-top: 50px;
 
         .cart__productRow{
-            background-color: aqua;
+            // background-color: aqua;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 100px;
+
+            .cart__productRow--price{
+                width: 100px;
+                text-align: center;
+            }
             .cart__productRow--imgCont{
                 width: 100px;
                 // height: 250px;
-                background-color: red;
+                // background-color: red;
                 img{
                     width: 100%;
                 }
             }
 
+            .cart__productRow--prodDetails{
+                min-width: 374px;
+                text-align: center;
+            }
+
             .cart__productRow--controls{
-                background-color: bisque;
+                // background-color: bisque;
                 display: flex;
 
                 .cart__productRow--quantityCont{
                     display: flex;
+                    gap: 10px;
                     
+                    .cart__productRow--count{
+                        width: 20px;
+                        text-align: center;
+                    }
                     button{
                         cursor: pointer;
+                    }
+
+                    .cart__productRow--dec{
+                        cursor: pointer;
+                        img {
+                            width: 20px;
+                        }
+                    }
+
+                    .cart__productRow--inc{
+                        cursor: pointer;
+                        img{
+                            width: 20px;
+                        }
+                    }
+                }
+
+                .cart__productRow--delCont{
+                    cursor: pointer;
+                    margin-left: 20px;
+                    img{
+                        width: 20px;
                     }
                 }
             }

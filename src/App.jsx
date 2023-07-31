@@ -26,7 +26,7 @@ function App() {
             <Route path=":catName" element={<Category />} />
           </Route>
           <Route path="products">
-            <Route path=":name" element={<Product />} />
+            <Route path=":_id" element={<Product />} />
           </Route>
           <Route path="cart" element={<Cart />} />
         </Routes>

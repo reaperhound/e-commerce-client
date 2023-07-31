@@ -61,7 +61,7 @@ const Home = () => {
                 <div className='overlay'>
                   <span>{category}</span>
                 </div>
-                <img src='/shoe.jpg' alt='' />
+                <img src={`/${category}.jpg`} alt='' />
               </Link>
             </div>
           );

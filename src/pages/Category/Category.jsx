@@ -71,7 +71,7 @@ const Category = () => {
             return (
               <div key={_id} className='category__imageContainer'>
                 <Link
-                  to={`/products/${title}?brand=${brand}&img=${image}&price=${price}&category=${category}&description=${description}&reviews=${reviews}`}
+                  to={`/products/${_id}?brand=${brand}&img=${image}&price=${price}&category=${category}&description=${description}&reviews=${reviews}&title=${title}`}
                 >
                   <img src={image} alt={title} />
                 </Link>

@@ -119,6 +119,16 @@
                 margin-bottom: 22px;
             }
 
+            .product__details--cartBtn-disabled{
+                display: block;
+                width: 200px;
+                height: 50px;
+                background-color: #CCCCCC;
+                font-weight: 600;
+                letter-spacing: 2px;
+                margin-bottom: 22px;
+            }
+
             .product__details--buyBtn{
                 width: 200px;
                 height: 50px;
@@ -127,6 +137,28 @@
                 letter-spacing: 2px;
                 font-weight: 600;
             }
+
+            .product__details--cartBtn {
+                background-color: #2c698d;
+              }
+            
+              .product__details--buyBtn {
+                background-color: #272643;
+              }
+            
+              .product__details--cartBtn:hover,
+              .product__details--buyBtn:hover {
+                background-color: #444;
+                transform: scale(1.05);
+              }
+
+              .product__details--cartBtn:active,
+              .product__details--buyBtn:active {
+                background-color: #000;
+                transform: scale(0.95);
+                transition: background-color 0.1s ease-in-out, transform 0.1s ease-in-out;
+              }
+
         }
     }
 }
