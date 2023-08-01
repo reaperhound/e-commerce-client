@@ -49,7 +49,7 @@ const SignUp = () => {
       });
       console.log((await response).data.data);
 
-      navigate('/')
+      navigate('/auth/signin')
     } catch (error) {
       console.log(error);
     }
