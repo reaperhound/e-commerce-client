@@ -14,14 +14,6 @@ export const useStore = create((set) => {
     addToCartItems: (cartItem) =>
       set((state) => {
         const updatedCartItems = [...state.cartItems, cartItem];
-
-        // const incrementedCount = state.cartItems.findIndex(item => item.title === cartItem.title);
-        // if(incrementedCount !== -1){
-        //   let incrementedCartItems = JSON.parse(localStorage.getItem("cartItems"));
-        //   incrementedCartItems = incrementedCartItems.map((item, index) => index === incrementedCount ? {...item, count: item.count + 1} : item)
-        //   localStorage.setItem("cartItems", JSON.stringify(incrementedCartItems));
-        //   return { cartItems : incrementedCartItems}
-        // }
         localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
         return { cartItems: updatedCartItems };
       }),

@@ -39,7 +39,7 @@ const Category = () => {
 
   useEffect(() => {
     async function fetchProductList() {
-      const products = axios.get(`http://localhost:3000/category/${params}`);
+      const products = axios.get(`https://e-commerce-api-fa1t.onrender.com/category/${params}`);
       console.log(await products);
       setProductsList((await products).data?.data);
     }

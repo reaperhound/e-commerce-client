@@ -42,7 +42,7 @@ const SignUp = () => {
   async function signUpHandler() {
     try {
       buttonAnim.restart();
-      const response = axios.post("http://localhost:3000/auth/register", {
+      const response = axios.post("https://e-commerce-api-fa1t.onrender.com/auth/register", {
         username,
         password,
         email,

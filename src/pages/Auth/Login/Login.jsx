@@ -35,7 +35,7 @@ const Login = () => {
   async function loginHandler() {
     try {
       buttonAnim.restart();
-      const response = axios.post("http://localhost:3000/auth/login", {
+      const response = axios.post("https://e-commerce-api-fa1t.onrender.com/auth/login", {
         email,
         password,
       });
