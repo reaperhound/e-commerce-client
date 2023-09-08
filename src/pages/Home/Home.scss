@@ -5,9 +5,10 @@
 
     .home__categoryContainer{
         display: flex;
+        justify-content: space-evenly;
         flex-wrap: wrap;
         gap: 50px;
-        margin-left: 80px;
+        // margin-left: 80px;
 
         img{
             width: 650px;

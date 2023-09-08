@@ -2,6 +2,7 @@ import React from "react";
 import { getUserFromLocal } from "../../utils/JWT";
 import Navbar from "../../components/Navbar";
 import "./Home.scss";
+import Loader from "../../components/Loader/Loader";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { gsap } from "gsap";
@@ -17,9 +18,9 @@ const Home = () => {
   let user = getUserFromLocal();
 
   //` do some modal here
-  // if (user === false) {
-  //   return <div>Error</div>;
-  // }
+  if (user === false) {
+    return <div>Error</div>;
+  }
   user = JSON.parse(user);
 
   let homeContainer = useRef(null);
@@ -27,7 +28,7 @@ const Home = () => {
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       const TL = gsap.timeline({
-        defaults: { x: -2500, ease: "power1.out", duration: 0.75 },
+        defaults: { x: -2500, ease: "power1.out", duration: 0.85 },
       });
       TL.from(".home__categoryContainer--imgCont0", {})
         .from(".home__categoryContainer--imgCont1", {}, "-=0.55")
@@ -40,11 +41,19 @@ const Home = () => {
 
   useEffect(() => {
     async function fetchCategories() {
-      const categories = axios.get("https://e-commerce-api-fa1t.onrender.com/category");
+      const categories = axios.get(
+        "https://e-commerce-api-fa1t.onrender.com/category"
+      );
       setCategoryList((await categories).data?.data);
     }
+
     fetchCategories();
   }, []);
+
+  //@ Loader 
+  if (categoryList.length === 0) {
+    return <Loader />;
+  }
 
   console.log("categoryList", categoryList);
   return (

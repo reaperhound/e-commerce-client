@@ -8,12 +8,15 @@ import { useRef } from "react";
 import { useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import { useStore } from "../../store/store";
+import { useStripe } from "@stripe/react-stripe-js";
+import { useElements } from "@stripe/react-stripe-js";
 
 const Product = () => {
   useDocumentTitle("Products");
   const { _id } = useParams();
   const [query] = useSearchParams();
-  const { brand, img, price, title, category, description, reviews } = Object.fromEntries([...query]);
+  const { brand, img, price, title, category, description, reviews } =
+    Object.fromEntries([...query]);
 
   const addToCart = useStore((state) => state.addToCartItems);
   const cartItems = useStore((state) => state.cartItems);
@@ -58,11 +61,43 @@ const Product = () => {
       price,
       category,
       description,
-      reviews
+      reviews,
     });
   }
 
   const navigate = useNavigate();
+  const stripe = useStripe();
+  const elements = useElements();
+
+  async function paymentHandler(event) {
+    event.preventDefault();
+  
+    if (!stripe || !elements) {
+      return;
+    }
+  
+    try {
+      const response = await fetch(
+        "/.netlify/functions-serve/create-payment-intent",
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ amount: Number.parseInt(price) }),
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+  
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
   return (
     <div className='product'>
       <Navbar />
@@ -109,7 +144,9 @@ const Product = () => {
               Add to Cart
             </button>
           )}
-          <button className='product__details--buyBtn'>Buy Now</button>
+          <button className='product__details--buyBtn' onClick={paymentHandler}>
+            Buy Now
+          </button>
         </div>
       </div>
     </div>

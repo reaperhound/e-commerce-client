@@ -14,12 +14,14 @@
     "@stripe/stripe-js": "^1.54.2",
     "@uidotdev/usehooks": "^2.0.1",
     "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
     "gsap": "^3.12.2",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2",
     "sass": "^1.63.6",
+    "stripe": "^12.16.0",
     "zustand": "^4.3.9"
   },
   "devDependencies": {
