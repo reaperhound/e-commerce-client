@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDocumentTitle } from "@uidotdev/usehooks";
 import Modal from "../../../components/Modal/Modal";
+import { useLayoutEffect } from "react";
 
 // import { setToken } from "../../../utils/JWT";
 
@@ -21,8 +22,13 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  //# useState for Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
   //# ref for context
   const formContainer = useRef(null);
+
   //# ref for timeline
   let TL = useRef(null);
 
@@ -30,10 +36,7 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const buttonAnim = gsap.to(".form__submit-btn", {
-    // scale: 0.75,
     rotateY: 360,
-    // yoyo: true,
-    // repeat: 1,
     duration: 0.55,
     ease: "power4",
     paused: true,
@@ -56,11 +59,16 @@ const SignUp = () => {
       navigate("/auth/signin");
     } catch (error) {
       console.log(error.response);
+      if (error.response.status === 400) {
+        console.log("eroor message", error.response.data.error);
+        setModalMessage(error.response.data.error);
+        setIsModalOpen(true);
+      }
     }
   }
 
   //# animation useEffect
-  useEffect(() => {
+  useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       animateFormSignUp(TL.current);
     }, formContainer);
@@ -69,7 +77,16 @@ const SignUp = () => {
 
   return (
     <>
-    <Modal />
+      {/*//@ Modal  */}
+      {isModalOpen && (
+        <Modal
+          content={<ModalContent message={modalMessage} />}
+          closingStateFunction={setIsModalOpen}
+          width='40vw'
+          height='20vh'
+        />
+      )}
+
       <div className='formSignUp' ref={formContainer}>
         <form className='form__form' onSubmit={(e) => e.preventDefault()}>
           <div className='form__title'>
@@ -125,3 +142,22 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+function ModalContent({ message }) {
+  return (
+    <>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "20px",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        {message}
+      </div>
+    </>
+  );
+}

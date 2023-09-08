@@ -4,7 +4,7 @@
     height: 100vh;
     background-color: black;
     z-index: 100;
-    opacity: 0.5;
+    opacity: 0.7;
 }
 
 .modal-conatiner {
@@ -15,8 +15,25 @@
     width: 100vw;
     place-items: center;
     .modal-body{
+        position: relative;
         width: 50vw;
         height: 50vh;
         background-color: aliceblue;
+        border-radius: 5px;
+
+        .modal-close-button{
+            position: absolute;
+            right: 0;
+            height: 30px;
+            width: 30px;
+            background-color: black;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;   
+            margin: 10px;
+        }
+        .modal-close-button:active{
+            background-color: gray;
+        }
     }
 }
