@@ -10,6 +10,7 @@ import { gsap } from "gsap";
 import { useStore } from "../../store/store";
 import { useStripe } from "@stripe/react-stripe-js";
 import { useElements } from "@stripe/react-stripe-js";
+import useAuthStatus from "../../utils/Hooks/useAuthStatus";
 
 const Product = () => {
   useDocumentTitle("Products");
@@ -71,11 +72,11 @@ const Product = () => {
 
   async function paymentHandler(event) {
     event.preventDefault();
-  
+
     if (!stripe || !elements) {
       return;
     }
-  
+
     try {
       const response = await fetch(
         "/.netlify/functions-serve/create-payment-intent",
@@ -87,17 +88,24 @@ const Product = () => {
           body: JSON.stringify({ amount: Number.parseInt(price) }),
         }
       );
-  
+
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-  
+
       const data = await response.json();
       console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   }
+
+  const authenticated = useAuthStatus();
+
+  if (!authenticated) {
+    navigate("auth/signup");
+  }
+
   return (
     <div className='product'>
       <Navbar />

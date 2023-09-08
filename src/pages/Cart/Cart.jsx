@@ -6,6 +6,7 @@ import "./Cart.scss";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuthStatus from "../../utils/Hooks/useAuthStatus";
 
 const Cart = () => {
   useDocumentTitle("Cart");
@@ -26,6 +27,12 @@ const Cart = () => {
     setTotalAmount(am);
   }, [cartItems]);
 
+  const authenticated = useAuthStatus();
+
+  if (!authenticated) {
+    navigate("/auth/signup");
+  }
+
   console.log(cartItems);
   return (
     <div className='cart'>
@@ -36,11 +43,23 @@ const Cart = () => {
 
       <div className='cart__container'>
         {cartItems.map((item) => {
-          const { brand, count, img, price, title, _id, category, description, reviews } = item;
+          const {
+            brand,
+            count,
+            img,
+            price,
+            title,
+            _id,
+            category,
+            description,
+            reviews,
+          } = item;
           return (
             <div key={title} className='cart__productRow'>
               <div className='cart__productRow--imgCont'>
-                <Link to={`/products/${_id}?brand=${brand}&img=${img}&price=${price}&category=${category}&description=${description}&reviews=${reviews}&title=${title}`}>
+                <Link
+                  to={`/products/${_id}?brand=${brand}&img=${img}&price=${price}&category=${category}&description=${description}&reviews=${reviews}&title=${title}`}
+                >
                   <img src={img} alt={title} />
                 </Link>
               </div>

@@ -11,21 +11,18 @@ import Loader from "../../components/Loader/Loader";
 import { gsap } from "gsap";
 
 // Utility functions and custom hooks
-import { getUserFromLocal } from "../../utils/JWT";
 import { useDocumentTitle } from "@uidotdev/usehooks";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useAuthStatus from "../../utils/Hooks/useAuthStatus";
 
 const Home = () => {
-
   // Set the document title
   useDocumentTitle("Home");
 
   // State for category list
   const [categoryList, setCategoryList] = useState([]);
 
-  // Get user from local storage
-  let user = getUserFromLocal();
 
   const navigate = useNavigate();
 
@@ -59,21 +56,24 @@ const Home = () => {
     fetchCategories();
   }, []);
 
-  // redirect to signUp
-  if (user === false) {
+  const authenticated = useAuthStatus();
+
+  if (!authenticated) {
     navigate("/auth/signup");
   }
 
-
   // If categoryList is empty, display a loader
-  if (categoryList.length === 0) {
-    return <Loader />;
-  }
+  // if (categoryList.length === 0) {
+  //   return <Loader />;
+  // }
 
   // Render the Home component
   return (
     <div className='home'>
       <Navbar />
+      {
+        categoryList.length === 0 && <Loader />
+      }
       <div className='home__categoryContainer' ref={homeContainer}>
         {categoryList.map((category, index) => {
           return (
