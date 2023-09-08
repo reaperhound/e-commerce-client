@@ -1,30 +1,39 @@
-import React from "react";
-import { getUserFromLocal } from "../../utils/JWT";
-import Navbar from "../../components/Navbar";
-import "./Home.scss";
-import Loader from "../../components/Loader/Loader";
-import { useRef } from "react";
-import { useEffect } from "react";
-import { gsap } from "gsap";
+// React imports
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
+
+// Router and component imports
 import { Link } from "react-router-dom";
+import Navbar from "../../components/Navbar";
+import Loader from "../../components/Loader/Loader";
+
+// Animation library import
+import { gsap } from "gsap";
+
+// Utility functions and custom hooks
+import { getUserFromLocal } from "../../utils/JWT";
 import { useDocumentTitle } from "@uidotdev/usehooks";
-import { useLayoutEffect } from "react";
 import axios from "axios";
-import { useState } from "react";
 
 const Home = () => {
+  // Set the document title
   useDocumentTitle("Home");
+
+  // State for category list
   const [categoryList, setCategoryList] = useState([]);
+
+  // Get user from local storage
   let user = getUserFromLocal();
 
-  //` do some modal here
+  // If the user is not found, display an error
   if (user === false) {
     return <div>Error</div>;
   }
   user = JSON.parse(user);
 
+  // Reference to the home container element for animations
   let homeContainer = useRef(null);
 
+  // Animation using gsap and react's useLayoutEffect
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       const TL = gsap.timeline({
@@ -39,23 +48,26 @@ const Home = () => {
     return () => ctx.revert();
   }, [categoryList]);
 
+  // Fetch categories from an API using axios
   useEffect(() => {
     async function fetchCategories() {
-      const categories = axios.get(
+      const categories = await axios.get(
         "https://e-commerce-api-fa1t.onrender.com/category"
       );
-      setCategoryList((await categories).data?.data);
+      setCategoryList(categories.data?.data);
     }
 
     fetchCategories();
   }, []);
 
-  //@ Loader 
+  // If categoryList is empty, display a loader
   if (categoryList.length === 0) {
     return <Loader />;
   }
 
   console.log("categoryList", categoryList);
+
+  // Render the Home component
   return (
     <div className='home'>
       <Navbar />
