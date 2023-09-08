@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 
 // Router and component imports
-import "./Home.scss"
+import "./Home.scss";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Loader from "../../components/Loader/Loader";
@@ -17,6 +17,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+
   // Set the document title
   useDocumentTitle("Home");
 
@@ -27,12 +28,6 @@ const Home = () => {
   let user = getUserFromLocal();
 
   const navigate = useNavigate();
-  // If the user is not found, display an error
-  if (user === false) {
-    // return <div>Error</div>;
-    navigate("/auth/signup");
-  }
-  user = JSON.parse(user);
 
   // Reference to the home container element for animations
   let homeContainer = useRef(null);
@@ -64,12 +59,16 @@ const Home = () => {
     fetchCategories();
   }, []);
 
+  // redirect to signUp
+  if (user === false) {
+    navigate("/auth/signup");
+  }
+
+
   // If categoryList is empty, display a loader
   if (categoryList.length === 0) {
     return <Loader />;
   }
-
-  console.log("categoryList", categoryList);
 
   // Render the Home component
   return (
