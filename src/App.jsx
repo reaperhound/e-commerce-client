@@ -8,6 +8,7 @@ import Category from "./pages/Category/Category";
 import Product from "./pages/Product/Product";
 import Cart from "./pages/Cart/Cart";
 import Loader from "./components/Loader/Loader";
+import Modal from "./components/Modal/Modal";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -17,6 +18,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Home />}></Route>
+          {/* <Route path="modal" element={<Modal />}></Route> */}
           <Route path='auth' element=''>
             <Route path='signin' element={<Login />} />
             <Route path='signup' element={<SignUp />} />

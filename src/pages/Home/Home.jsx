@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 
 // Router and component imports
+import "./Home.scss"
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Loader from "../../components/Loader/Loader";
@@ -13,6 +14,7 @@ import { gsap } from "gsap";
 import { getUserFromLocal } from "../../utils/JWT";
 import { useDocumentTitle } from "@uidotdev/usehooks";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   // Set the document title
@@ -24,9 +26,11 @@ const Home = () => {
   // Get user from local storage
   let user = getUserFromLocal();
 
+  const navigate = useNavigate();
   // If the user is not found, display an error
   if (user === false) {
-    return <div>Error</div>;
+    // return <div>Error</div>;
+    navigate("/auth/signup");
   }
   user = JSON.parse(user);
 
